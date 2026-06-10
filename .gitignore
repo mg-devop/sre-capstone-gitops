@@ -1,0 +1,12 @@
+.kube/
+kubeconfig
+*.env
+.env*
+secrets/
+.vscode/
+.idea/
+*.log
+tmp/
+k3d-*.yaml
+dist/
+build/
