@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-provider
+  namespace: microservices-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity-provider
+  template:
+    metadata:
+      labels:
+        app: identity-provider
+    spec:
+      containers:
+      - name: identity-provider
+        image: gopidev/identity-service:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
