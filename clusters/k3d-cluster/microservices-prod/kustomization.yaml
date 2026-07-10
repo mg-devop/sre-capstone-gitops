@@ -7,5 +7,5 @@ namespace: microservices-prod
 
 resources:
   - namespace.yaml
-  - ../../../base/pgsql
-  - ../../../base/identity-service
+  - base/pgsql
+  - base/identity-service
