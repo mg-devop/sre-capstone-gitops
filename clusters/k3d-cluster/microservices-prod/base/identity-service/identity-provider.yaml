@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: identity-provider
+  name: identity-platform
   namespace: microservices-prod
 spec:
   replicas: 1
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: identity-provider
-        image: gopidev/identity-service:latest
+        image: gopidevops01/identity-service:latest
         ports:
         - containerPort: 3000
         resources:
