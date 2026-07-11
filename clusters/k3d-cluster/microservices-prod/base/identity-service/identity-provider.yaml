@@ -15,9 +15,22 @@ spec:
     spec:
       containers:
       - name: identity-provider
-        image: gopidevops01/identity-service:latest
+        image: gopidevops1/identity-service:latest
         ports:
         - containerPort: 3000
+        env:
+        - name: DB_HOST
+          value: "pgsql-service"
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db-secret
+              key: POSTGRES_DB
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db-secret
+              key: POSTGRES_PASSWORD
         resources:
           requests:
             memory: "128Mi"
