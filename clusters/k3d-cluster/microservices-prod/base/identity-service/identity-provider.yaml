@@ -13,9 +13,12 @@ spec:
       labels:
         app: identity-provider
     spec:
+      # This secret provides the required authorization to pull your image
+      imagePullSecrets:
+      - name: my-registry-key
       containers:
       - name: identity-provider
-        image: gopidevops1/identity-service:latest
+        image: gopidevops01/identity-service:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
