@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-service
+  namespace: microservices-prod
+  labels:
+    app: api-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-service
+  template:
+    metadata:
+      labels:
+        app: api-service
+    spec:
+      imagePullSecrets:
+      - name: my-registry-key
+      containers:
+      - name: api-service
+        image: gopidevops01/api-service:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          value: "pgsql-service"
+        # If your API needs the identity-service, add it here
+        # - name: IDENTITY_SERVICE_URL
+        #   value: "http://identity-platform:3000"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
