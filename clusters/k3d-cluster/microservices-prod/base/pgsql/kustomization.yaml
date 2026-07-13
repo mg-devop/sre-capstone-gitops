@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - pgsql-service.yaml
   - pgsql-statefulset.yaml
+  - pgsql-secret.yaml
