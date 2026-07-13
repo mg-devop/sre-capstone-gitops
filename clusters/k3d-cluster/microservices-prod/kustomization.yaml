@@ -10,3 +10,4 @@ resources:
   - base/pgsql
   - base/identity-service
   - base/api-service
+  - base/frontend
