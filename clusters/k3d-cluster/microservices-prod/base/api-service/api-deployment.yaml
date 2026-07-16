@@ -26,9 +26,23 @@ spec:
         env:
         - name: DB_HOST
           value: "pgsql-service"
-        # If your API needs the identity-service, add it here
-        # - name: IDENTITY_SERVICE_URL
-        #   value: "http://identity-platform:3000"
+        # Using the same keys as your identity-platform service
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db-secret
+              key: POSTGRES_DB
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db-secret
+              key: POSTGRES_PASSWORD
+        # Prisma-specific requirement
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db-secret
+              key: DATABASE_URL
         resources:
           requests:
             memory: "64Mi"
