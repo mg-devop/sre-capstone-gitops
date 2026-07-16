@@ -5,6 +5,8 @@ metadata:
   namespace: microservices-prod
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web
+    # Apply the middleware only to the path defined below
+    traefik.ingress.kubernetes.io/router.middlewares: microservices-prod-strip-api@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
