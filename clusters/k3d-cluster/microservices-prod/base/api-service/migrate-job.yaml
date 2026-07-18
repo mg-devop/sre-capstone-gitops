@@ -12,7 +12,7 @@ spec:
       containers:
       - name: migrate
         image: gopidevops01/api-service:latest
-        command: ["npx", "prisma", "db", "push"]
+        command: ["npx", "prisma", "db", "push", "--schema=./node_modules/.prisma/client/schema.prisma"]
         env:
           - name: DATABASE_URL
             valueFrom:
