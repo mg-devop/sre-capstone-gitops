@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-platform
+  namespace: microservices-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: identity-provider
+  template:
+    metadata:
+      labels:
+        app: identity-provider
+    spec:
+      # This secret provides the required authorization to pull your image
+      imagePullSecrets:
+      - name: my-registry-key
+      containers:
+      - name: identity-provider
+        image: gopidevops01/identity-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        env:
+        - name: DB_HOST
+          value: "pgsql-service"
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db-secret
+              key: POSTGRES_DB
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-db-secret
+              key: POSTGRES_PASSWORD
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
