@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: k8s-monitoring
-      version: 4.x.x # Use the specific version, e.g., 4.1.0
+      version: "4.3.0"
       sourceRef:
         kind: HelmRepository
         name: grafana-charts
@@ -37,6 +37,34 @@ spec:
             secret:
               name: grafana-token
               key: logs-token
+    clusterMetrics:
+      enabled: true
+      collector: alloy-metrics
+    hostMetrics:
+      enabled: true
+      collector: alloy-metrics
+      linuxHosts:
+        enabled: true
+      windowsHosts:
+        enabled: true
+      energyMetrics:
+        enabled: true
+    costMetrics:
+      enabled: true
+      collector: alloy-metrics
+    clusterEvents:
+      enabled: true
+      collector: alloy-singleton
+    podLogsViaLoki:
+      enabled: true
+      collector: alloy-logs
+    collectors:
+      alloy-metrics:
+        presets: [clustered, statefulset]
+      alloy-singleton:
+        presets: [singleton]
+      alloy-logs:
+        presets: [filesystem-log-reader, daemonset]
     collectorCommon:
       alloy:
         remoteConfig:
@@ -49,25 +77,21 @@ spec:
               secret:
                 name: grafana-token
                 key: alloy-token
-    # Adding the rest of your monitoring features
-    clusterMetrics: { enabled: true, collector: alloy-metrics }
-    hostMetrics: { enabled: true, collector: alloy-metrics, linuxHosts: { enabled: true }, windowsHosts: { enabled: true }, energyMetrics: { enabled: true } }
-    costMetrics: { enabled: true, collector: alloy-metrics }
-    clusterEvents: { enabled: true, collector: alloy-singleton }
-    podLogsViaLoki: { enabled: true, collector: alloy-logs }
-    collectors:
-      alloy-metrics: { presets: [clustered, statefulset] }
-      alloy-singleton: { presets: [singleton] }
-      alloy-logs: { presets: [filesystem-log-reader, daemonset] }
     telemetryServices:
-      kube-state-metrics: { deploy: true }
-      node-exporter: { deploy: true }
-      windows-exporter: { deploy: true }
+      kube-state-metrics:
+        deploy: true
+      node-exporter:
+        deploy: true
+      windows-exporter:
+        deploy: true
+      kepler:
+        deploy: true
       opencost:
         deploy: true
         metricsSource: grafana-cloud-metrics
         opencost:
-          exporter: { defaultClusterId: capstone-nexus }
+          exporter:
+            defaultClusterId: capstone-nexus
           prometheus:
             existingSecretName: grafana-cloud-metrics-grafana-k8s-monitoring
             external:
