@@ -4,3 +4,6 @@ namespace: ccoe
 resources:
   - namespace.yaml
   - deployment.yaml
+  - sealed-secret.yaml
+  - repo.yaml
+  - release.yaml

@@ -1,0 +1,74 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: k8s-monitoring
+  namespace: ccoe
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: k8s-monitoring
+      version: 4.x.x # Use the specific version, e.g., 4.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
+        namespace: ccoe
+  values:
+    cluster:
+      name: capstone-nexus
+    destinations:
+      grafana-cloud-metrics:
+        type: prometheus
+        url: https://prometheus-prod-43-prod-ap-south-1.grafana.net/api/prom/push
+        auth:
+          type: basic
+          username: "3381078"
+          password:
+            secret:
+              name: grafana-token
+              key: metrics-token
+      grafana-cloud-logs:
+        type: loki
+        url: https://logs-prod-028.grafana.net/loki/api/v1/push
+        auth:
+          type: basic
+          username: "1686214"
+          password:
+            secret:
+              name: grafana-token
+              key: logs-token
+    collectorCommon:
+      alloy:
+        remoteConfig:
+          enabled: true
+          url: https://fleet-management-prod-018.grafana.net
+          auth:
+            type: basic
+            username: "1728427"
+            password:
+              secret:
+                name: grafana-token
+                key: alloy-token
+    # Adding the rest of your monitoring features
+    clusterMetrics: { enabled: true, collector: alloy-metrics }
+    hostMetrics: { enabled: true, collector: alloy-metrics, linuxHosts: { enabled: true }, windowsHosts: { enabled: true }, energyMetrics: { enabled: true } }
+    costMetrics: { enabled: true, collector: alloy-metrics }
+    clusterEvents: { enabled: true, collector: alloy-singleton }
+    podLogsViaLoki: { enabled: true, collector: alloy-logs }
+    collectors:
+      alloy-metrics: { presets: [clustered, statefulset] }
+      alloy-singleton: { presets: [singleton] }
+      alloy-logs: { presets: [filesystem-log-reader, daemonset] }
+    telemetryServices:
+      kube-state-metrics: { deploy: true }
+      node-exporter: { deploy: true }
+      windows-exporter: { deploy: true }
+      opencost:
+        deploy: true
+        metricsSource: grafana-cloud-metrics
+        opencost:
+          exporter: { defaultClusterId: capstone-nexus }
+          prometheus:
+            existingSecretName: grafana-cloud-metrics-grafana-k8s-monitoring
+            external:
+              url: https://prometheus-prod-43-prod-ap-south-1.grafana.net/api/prom
