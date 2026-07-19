@@ -96,3 +96,5 @@ spec:
             existingSecretName: grafana-cloud-metrics-grafana-k8s-monitoring
             external:
               url: https://prometheus-prod-43-prod-ap-south-1.grafana.net/api/prom
+    # Force sync comment
+    description: "Deployment updated to include kepler for energy metrics"
