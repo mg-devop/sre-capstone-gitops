@@ -17,7 +17,7 @@ spec:
     cluster:
       name: capstone-nexus
     destinations:
-      grafana-cloud-metrics:
+      - name: grafana-cloud-metrics
         type: prometheus
         url: https://prometheus-prod-43-prod-ap-south-1.grafana.net/api/prom/push
         auth:
@@ -27,7 +27,7 @@ spec:
             secret:
               name: grafana-token
               key: metrics-token
-      grafana-cloud-logs:
+      - name: grafana-cloud-logs
         type: loki
         url: https://logs-prod-028.grafana.net/loki/api/v1/push
         auth:
@@ -39,61 +39,27 @@ spec:
               key: logs-token
     clusterMetrics:
       enabled: true
-      collector: alloy-metrics
     hostMetrics:
       enabled: true
-      collector: alloy-metrics
-      linuxHosts:
-        enabled: true
-      windowsHosts:
-        enabled: true
-      energyMetrics:
-        enabled: true
-    costMetrics:
-      enabled: false
     clusterEvents:
       enabled: true
-      collector: alloy-singleton
     podLogsViaLoki:
       enabled: true
-      collector: alloy-logs
+    costMetrics:
+      enabled: false
     collectors:
       alloy-metrics:
         presets: [clustered, statefulset]
         remoteConfig:
-          enabled: true
-          url: https://fleet-management-prod-018.grafana.net
-          auth:
-            type: basic
-            username: "1728427"
-            passwordKey: "alloy-token"
-          secret:
-            create: false
-            name: grafana-token
+          enabled: false
       alloy-singleton:
         presets: [singleton]
         remoteConfig:
-          enabled: true
-          url: https://fleet-management-prod-018.grafana.net
-          auth:
-            type: basic
-            username: "1728427"
-            passwordKey: "alloy-token"
-          secret:
-            create: false
-            name: grafana-token
+          enabled: false
       alloy-logs:
         presets: [filesystem-log-reader, daemonset]
         remoteConfig:
-          enabled: true
-          url: https://fleet-management-prod-018.grafana.net
-          auth:
-            type: basic
-            username: "1728427"
-            passwordKey: "alloy-token"
-          secret:
-            create: false
-            name: grafana-token
+          enabled: false
     telemetryServices:
       kube-state-metrics:
         deploy: true
