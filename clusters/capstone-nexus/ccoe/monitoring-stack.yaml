@@ -1,0 +1,31 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: prometheus-community
+  namespace: ccoe
+spec:
+  interval: 5m
+  url: https://prometheus-community.github.io/helm-charts
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: ccoe
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      version: "58.2.2"
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: ccoe
+  values:
+    grafana:
+      enabled: true
+      adminPassword: "admin"
+    prometheus:
+      prometheusSpec:
+        serviceMonitorSelectorNilUsesHelmValues: false
