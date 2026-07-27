@@ -26,6 +26,8 @@ spec:
     grafana:
       enabled: true
       adminPassword: "admin"
+      service:
+        type: LoadBalancer
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
