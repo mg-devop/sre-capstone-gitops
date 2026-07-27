@@ -67,10 +67,10 @@ spec:
           auth:
             type: basic
             username: "1728427"
-            password:
-              secret:
-                name: grafana-token
-                key: alloy-token
+            passwordKey: "alloy-token"
+          secret:
+            create: false
+            name: grafana-token
       alloy-singleton:
         presets: [singleton]
         remoteConfig:
@@ -79,10 +79,10 @@ spec:
           auth:
             type: basic
             username: "1728427"
-            password:
-              secret:
-                name: grafana-token
-                key: alloy-token
+            passwordKey: "alloy-token"
+          secret:
+            create: false
+            name: grafana-token
       alloy-logs:
         presets: [filesystem-log-reader, daemonset]
         remoteConfig:
@@ -91,10 +91,10 @@ spec:
           auth:
             type: basic
             username: "1728427"
-            password:
-              secret:
-                name: grafana-token
-                key: alloy-token
+            passwordKey: "alloy-token"
+          secret:
+            create: false
+            name: grafana-token
     telemetryServices:
       kube-state-metrics:
         deploy: true
