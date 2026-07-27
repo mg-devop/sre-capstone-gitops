@@ -105,17 +105,4 @@ spec:
       kepler:
         deploy: true
       opencost:
-        deploy: true
-        metricsSource: grafana-cloud-metrics
-        opencost:
-          exporter:
-            defaultClusterId: capstone-nexus
-          prometheus:
-            external:
-              url: https://prometheus-prod-43-prod-ap-south-1.grafana.net/api/prom
-              basicAuth:
-                username: "3381078"
-                password:
-                  secret:
-                    name: grafana-token
-                    key: metrics-token
+        deploy: false
