@@ -61,18 +61,36 @@ spec:
     collectors:
       alloy-metrics:
         presets: [clustered, statefulset]
-      alloy-singleton:
-        presets: [singleton]
-      alloy-logs:
-        presets: [filesystem-log-reader, daemonset]
-    collectorCommon:
-      alloy:
         remoteConfig:
           enabled: true
           url: https://fleet-management-prod-018.grafana.net
           auth:
             type: basic
-            username: "1728427"
+            username: "1849735"
+            password:
+              secret:
+                name: grafana-token
+                key: alloy-token
+      alloy-singleton:
+        presets: [singleton]
+        remoteConfig:
+          enabled: true
+          url: https://fleet-management-prod-018.grafana.net
+          auth:
+            type: basic
+            username: "1849735"
+            password:
+              secret:
+                name: grafana-token
+                key: alloy-token
+      alloy-logs:
+        presets: [filesystem-log-reader, daemonset]
+        remoteConfig:
+          enabled: true
+          url: https://fleet-management-prod-018.grafana.net
+          auth:
+            type: basic
+            username: "1849735"
             password:
               secret:
                 name: grafana-token
