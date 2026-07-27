@@ -50,8 +50,7 @@ spec:
       energyMetrics:
         enabled: true
     costMetrics:
-      enabled: true
-      collector: alloy-metrics
+      enabled: false
     clusterEvents:
       enabled: true
       collector: alloy-singleton
