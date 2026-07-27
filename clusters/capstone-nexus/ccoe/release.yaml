@@ -66,7 +66,7 @@ spec:
           url: https://fleet-management-prod-018.grafana.net
           auth:
             type: basic
-            username: "1849735"
+            username: "1728427"
             password:
               secret:
                 name: grafana-token
@@ -78,7 +78,7 @@ spec:
           url: https://fleet-management-prod-018.grafana.net
           auth:
             type: basic
-            username: "1849735"
+            username: "1728427"
             password:
               secret:
                 name: grafana-token
@@ -90,7 +90,7 @@ spec:
           url: https://fleet-management-prod-018.grafana.net
           auth:
             type: basic
-            username: "1849735"
+            username: "1728427"
             password:
               secret:
                 name: grafana-token
