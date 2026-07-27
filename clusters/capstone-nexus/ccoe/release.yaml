@@ -111,6 +111,11 @@ spec:
           exporter:
             defaultClusterId: capstone-nexus
           prometheus:
-            existingSecretName: grafana-cloud-metrics-k8s-monitoring
             external:
               url: https://prometheus-prod-43-prod-ap-south-1.grafana.net/api/prom
+              basicAuth:
+                username: "3381078"
+                password:
+                  secret:
+                    name: grafana-token
+                    key: metrics-token
