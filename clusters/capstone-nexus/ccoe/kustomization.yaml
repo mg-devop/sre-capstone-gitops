@@ -7,3 +7,4 @@ resources:
   - sealed-secret.yaml
   - repo.yaml
   - release.yaml
+  - grafana-ingress.yaml
