@@ -28,6 +28,15 @@ spec:
       adminPassword: "admin"
       service:
         type: LoadBalancer
+      grafana.ini:
+        smtp:
+          enabled: true
+          host: smtp.gmail.com:587
+          user: gopidevops2025@gmail.com
+          password: "jlumzcumvkyrhelv"
+          skip_verify: true
+          from_address: grafana-alerts@capstone.local
+          from_name: Grafana Capstone Alerts
     prometheus:
       prometheusSpec:
         serviceMonitorSelectorNilUsesHelmValues: false
