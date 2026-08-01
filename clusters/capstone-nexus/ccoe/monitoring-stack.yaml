@@ -28,7 +28,7 @@ spec:
       adminPassword: "admin"
       assertNoLeakedSecrets: false
       service:
-        type: LoadBalancer
+        type: ClusterIP
       grafana.ini:
         smtp:
           enabled: true
