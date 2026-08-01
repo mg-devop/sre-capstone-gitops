@@ -26,6 +26,7 @@ spec:
     grafana:
       enabled: true
       adminPassword: "admin"
+      assertNoLeakedSecrets: false
       service:
         type: LoadBalancer
       grafana.ini:
