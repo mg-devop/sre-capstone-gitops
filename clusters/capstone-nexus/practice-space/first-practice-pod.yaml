@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: first-practice-pod
+  namespace: practice-space
+spec:
+  containers:
+    - name: nginx-web
+      image: nginx:latest
+      ports:
+        - containerPorts: 80
+      resources:
+        requests:
+          memory: "20mi"
+          cpu: "10m"
+        limits:
+          memory: "200mi"
+          cpu: "100m"
+

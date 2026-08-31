@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: practice-space
 resources:
   - namespace.yaml
+  - first-practice-pod.yaml
